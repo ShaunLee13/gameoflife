@@ -97,6 +97,8 @@ header {
 
 /* Footer Styling */
 footer {
+  position:absolute;
+  bottom:0;
   text-align: center;
   height:100px;
   width: 100%;

@@ -36,6 +36,5 @@ export function toggleCell(x,y) {
   }
 
   export function changeSize(size) {
-    console.log('in the action, sending', size)
     return { type: CHANGE_SIZE, payload: size }
   }

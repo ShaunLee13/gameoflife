@@ -26,12 +26,12 @@ export const gameReducer = (state=initialGame, action) => {
         case MAKE_RANDOM:
             //true param requests a random grid from makeGrid method
             return {...state,
-                currentGrid: createNew(initialGame.gridSize, true),
+                currentGrid: createNew(state.gridSize, true),
                 generation: 0
             }
         case CLEAR_BOARD:
             return {...state,
-                currentGrid: createNew(initialGame.gridSize),
+                currentGrid: createNew(state.gridSize),
                 generation: 0
             }
         case TICK_COUNT:
@@ -47,7 +47,8 @@ export const gameReducer = (state=initialGame, action) => {
         case CHANGE_SIZE:
             console.log('here i am in the reducer now')
             return {...state,
-                currentGrid:createNew(action.payload)
+                currentGrid:createNew(action.payload),
+                gridSize:action.payload
             }
         //End of Board States
         //Beginning of Play

@@ -4,7 +4,6 @@ import {Switch, Route} from 'react-router-dom'
 import NavBar from './components/NavBar'
 import About from './components/About'
 import Game from './components/Game'
-import Footer from './components/Footer'
 
 // In this application, App will function simply to hold and position our components.
 // Logic will be handled through actions and/or in components
@@ -20,7 +19,6 @@ function App() {
           <Route exact path='/' component={About} />
         </Switch>
       </div>
-      <Footer />
     </div>
   );
 }

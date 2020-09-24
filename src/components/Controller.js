@@ -96,7 +96,7 @@ function Controller(props) {
                     <Grid item xs>
                         <Slider 
                             aria-labelledby="continuous-slider" 
-                            min={10}
+                            min={1}
                             max={1000}
                             value={speed}
                             onChange={speedSlider}
