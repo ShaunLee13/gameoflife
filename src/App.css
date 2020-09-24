@@ -1,3 +1,95 @@
-.App {
+/* Top Level Application*/
+
+header {
+  width: 100%;
+}
+/* Middle Filler Content; About and Game */ 
+.content {
+  height: auto;
+  width: 100%;
+}
+/* Game Styling */
+.gameContainer {
+  width: 100%;
+  display: flex;
+}
+
+.controlContainer {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.controlButton {
+  width:25%;
+  padding: 10px 30px;
+  margin: 10px 5px;
+  border-radius:0px;
+  border: 1px gray solid;
+}
+.sliderContainer{
+  width:100%;
+}
+
+.speedSlider {
+  padding:20px;
+}
+
+.sizeSlider {
+  padding:50px;
+}
+
+.submit {
+  padding:15px;
+  border-radius:5%;
+}
+
+.gridContainer {
+  width:75%;
+  display: flex;
+  justify-content: center;
+  border-left: 1px navy dashed;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: blue;
+  margin: 20px;
+  width: 900px;
+  height: 700px;
+  border: 1px solid gray;
+}
+
+/* About Styling */
+.aboutContainer {
+  width: 70%;
+  margin: 5px auto;
+}
+
+.aboutContainer p,li{
+  text-align: left;
+  font-size: 1.25rem;
+}
+
+/* Footer Styling */
+footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  margin-top: 100px;
+  height:100px;
+  width: 100%;
+  border-top: 1px solid paleturquoise;
+  background-color: white;
 }
