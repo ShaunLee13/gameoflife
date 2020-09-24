@@ -23,8 +23,8 @@ const sizes = [
         label:'125x125'
     },
     {
-        value:300,
-        label:'300x300'
+        value:200,
+        label:'200x200'
     },
 ]
 
@@ -111,7 +111,7 @@ function Controller(props) {
                 <Typography id="discrete-slider-restrict" gutterBottom>Grid Sizes</Typography>
                 <Grid container spacing={2} className='sizeSlider'>
                     <Slider
-                        max={300}
+                        max={200}
                         min={30}
                         defaultValue={30}
                         value={size}
