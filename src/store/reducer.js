@@ -1,5 +1,5 @@
 import { createNew, operateGame } from "../components/componentFunctions/gameCode"
-import { TOGGLE_CELL, MAKE_RANDOM, CLEAR_BOARD, TICK_COUNT, START_GAME, STOP_GAME } from "./actions"
+import { TOGGLE_CELL, MAKE_RANDOM, CLEAR_BOARD, TICK_COUNT, START_GAME, STOP_GAME, CHANGE_SPEED, CHANGE_SIZE } from "./actions"
 
 export const initialGame = {
     gridSize:30,
@@ -39,6 +39,15 @@ export const gameReducer = (state=initialGame, action) => {
             return {...state,
                 currentGrid: operateGame(runGame),
                 generation: state.generation+1
+            }
+        case CHANGE_SPEED:
+            return {...state,
+                gamespeed:action.payload
+        }
+        case CHANGE_SIZE:
+            console.log('here i am in the reducer now')
+            return {...state,
+                currentGrid:createNew(action.payload)
             }
         //End of Board States
         //Beginning of Play

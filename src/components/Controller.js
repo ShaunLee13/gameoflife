@@ -7,7 +7,7 @@ import { Grid, Slider, IconButton, Typography } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import {makeRandom,tick_count,startPlaying,stopPlaying,clear} from '../store/actions'
+import {makeRandom,tick_count,startPlaying,stopPlaying,clear, changeSpeed, changeSize} from '../store/actions'
 
 const sizes = [
     {
@@ -32,9 +32,22 @@ function Controller(props) {
     const [speed, setSpeed] = useState(500)
     const [size, setSize] = useState(30)
 
+    //This function controls the ability to adjust speed. Taking the change event and the new value, it sets the in place speed to such and then changes the speed in the store.
+    const speedSlider = (e, newVal) => {
+        setSpeed(newVal)
+        props.changeSpeed(newVal)
+    }
+
+    const sizeSlider = (e, newVal) => {
+        setSize(newVal)
+    }
+
+    const submitSize = e => {
+        props.changeSize(size)
+    }
+
     //check if the game is running. if it is, stop it. otherwise, start it, using the speed determined by gamespeed.
     const togglePlay = () => {
-        console.log('im here i just dont want to work')
         if (props.gameRunning) {
           clearInterval(props.timer);
           props.stopPlaying();
@@ -54,8 +67,9 @@ function Controller(props) {
 
     return (
         <div className='controlContainer'>
-            <h4>Current Generation: {props.generation}</h4>
-            <h4>Speed (in ms): {props.gamespeed}</h4>
+            <p className='details'>Current Generation: {props.generation}</p>
+            <p className='details'>Current Board Size: {props.gridSize}x{props.gridSize}</p>
+            <p className='details'>Speed (in ms): {props.gamespeed}</p>
             <div className='buttonContainer'>
                 <IconButton 
                     className='controlButton' 
@@ -84,7 +98,8 @@ function Controller(props) {
                             aria-labelledby="continuous-slider" 
                             min={10}
                             max={1000}
-                            defaultValue={500}
+                            value={speed}
+                            onChange={speedSlider}
                         />
                     </Grid>
                     <Grid item>
@@ -99,14 +114,16 @@ function Controller(props) {
                         max={300}
                         min={30}
                         defaultValue={30}
+                        value={size}
                         aria-labelledby="discrete-slider-restrict"
                         step={null}
                         valueLabelDisplay="auto"
                         marks={sizes}
+                        onChange={sizeSlider}
                     />
                 </Grid>
             </div>
-            <button className='submit'>Apply Size Changes</button>
+            <button className='submit' onClick={submitSize}>Apply Size Changes</button>
             <button className='submit' onClick={props.makeRandom}>Randomize me!</button>
 
         </div>
@@ -126,9 +143,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         makeRandom: () => dispatch(makeRandom()),
         tick_count: () => dispatch(tick_count()),
-        startPlaying: (timerId) => dispatch(startPlaying(timerId)),
+        startPlaying: (timer) => dispatch(startPlaying(timer)),
         stopPlaying: () => dispatch(stopPlaying()),
-        clear: () => dispatch(clear())
+        clear: () => dispatch(clear()),
+        changeSpeed: (speed) => dispatch(changeSpeed(speed)),
+        changeSize: (size) => dispatch(changeSize(size))
     };
 }
   

@@ -4,6 +4,8 @@ export const TICK_COUNT = 'TICK_COUNT'
 export const START_GAME = 'START_GAME'
 export const STOP_GAME = 'STOP_GAME'
 export const CLEAR_BOARD = 'CLEAR_BOARD'
+export const CHANGE_SPEED = 'CHANGE_SPEED'
+export const CHANGE_SIZE = 'CHANGE_SIZE'
 
 export function toggleCell(x,y) {
     return { type: TOGGLE_CELL, x,y };
@@ -27,4 +29,13 @@ export function toggleCell(x,y) {
   
   export function clear() {
     return { type: CLEAR_BOARD };
+  }
+
+  export function changeSpeed(speed) {
+    return { type: CHANGE_SPEED, payload: speed}
+  }
+
+  export function changeSize(size) {
+    console.log('in the action, sending', size)
+    return { type: CHANGE_SIZE, payload: size }
   }
