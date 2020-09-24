@@ -1,8 +1,13 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react'
+import { connect } from 'react-redux';
+
 import { Grid, Slider, IconButton, Typography } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import {makeRandom,tick_count,startPlaying,stopPlaying,clear} from '../store/actions'
 
 const sizes = [
     {
@@ -27,18 +32,44 @@ function Controller(props) {
     const [speed, setSpeed] = useState(500)
     const [size, setSize] = useState(30)
 
+    //check if the game is running. if it is, stop it. otherwise, start it, using the speed determined by gamespeed.
+    const togglePlay = () => {
+        console.log('im here i just dont want to work')
+        if (props.gameRunning) {
+          clearInterval(props.timer);
+          props.stopPlaying();
+        } else {
+          let interval = setInterval(props.tick_count,props.gamespeed);
+          props.startPlaying(interval);
+        }
+    }
+    //Use this function to reset back to the original table
+    const clear = () => {
+        if (props.gameRunning) {
+          clearInterval(props.timer);
+          props.stopPlaying();
+        }
+          props.clear();
+      }
+
     return (
         <div className='controlContainer'>
-            <h4>Current Generation: 0</h4>
-            <h4>Speed (in ms): 0</h4>
+            <h4>Current Generation: {props.generation}</h4>
+            <h4>Speed (in ms): {props.gamespeed}</h4>
             <div className='buttonContainer'>
-                <IconButton className='controlButton'>
+                <IconButton 
+                    className='controlButton' 
+                    onClick={() => togglePlay()}>
                     <PlayArrowIcon/>
                 </IconButton>
-                <IconButton className='controlButton'>
+                <IconButton 
+                    className='controlButton' 
+                    onClick={() => togglePlay()}>
                     <PauseIcon/>
                 </IconButton>
-                <IconButton className='controlButton'>
+                <IconButton 
+                    className='controlButton'
+                    onClick={() => clear()}>
                     <RotateLeftIcon/>
                 </IconButton>
             </div>
@@ -76,8 +107,29 @@ function Controller(props) {
                 </Grid>
             </div>
             <button className='submit'>Apply Size Changes</button>
+            <button className='submit' onClick={props.makeRandom}>Randomize me!</button>
+
         </div>
     )
 }
 
-export default Controller
+const mapStateToProps = state => {
+    return {
+        generation:state.generation,
+        gridSize:state.gridSize,
+        gamespeed:state.gamespeed,
+        gameRunning:state.gameRunning,
+        timer:state.timer   
+    }
+   }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        makeRandom: () => dispatch(makeRandom()),
+        tick_count: () => dispatch(tick_count()),
+        startPlaying: (timerId) => dispatch(startPlaying(timerId)),
+        stopPlaying: () => dispatch(stopPlaying()),
+        clear: () => dispatch(clear())
+    };
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Controller)
